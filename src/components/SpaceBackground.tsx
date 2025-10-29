@@ -307,10 +307,10 @@ export default function SpaceBackground() {
         
         {/* Main Title */}
         <h1 
-          className="text-white text-5xl md:text-6xl lg:text-7xl mb-6 md:mb-8 text-center"
+          className="text-white text-4xl md:text-6xl lg:text-7xl mb-6 md:mb-8 text-center whitespace-nowrap"
           style={{
-            fontFamily: "'Cinzel Decorative', cursive",
-            fontWeight: 700,
+            fontFamily: "'Berkshire Swash', cursive",
+            fontWeight: 400,
             letterSpacing: '0.02em',
           }}
         >
@@ -321,8 +321,8 @@ export default function SpaceBackground() {
         <p 
           className="text-white text-base md:text-lg lg:text-xl text-center max-w-2xl"
           style={{
-            fontFamily: "'Cinzel Decorative', cursive",
-            fontWeight: 300,
+            fontFamily: "'Berkshire Swash', cursive",
+            fontWeight: 400,
             letterSpacing: '0.05em',
           }}
         >
@@ -331,7 +331,7 @@ export default function SpaceBackground() {
       
       {/* Google Fonts Link */}
       <link 
-        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" 
+        href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" 
         rel="stylesheet" 
       />
       </div>
