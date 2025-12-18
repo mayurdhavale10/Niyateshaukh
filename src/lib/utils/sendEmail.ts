@@ -17,10 +17,12 @@ export async function sendTicketEmail(data: TicketEmailData): Promise<boolean> {
   try {
     // Create transporter
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT ?? 587),
+      secure: false,
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
     });
 
@@ -29,7 +31,7 @@ export async function sendTicketEmail(data: TicketEmailData): Promise<boolean> {
     const base64Data = data.qrCode.split(',')[1];
 
     const mailOptions = {
-      from: `"${data.eventName}" <${process.env.EMAIL_USER}>`,
+      from: process.env.SMTP_FROM || process.env.SMTP_USER,
       to: data.to,
       subject: `Your ticket • ${data.eventName}`,
       html: `
