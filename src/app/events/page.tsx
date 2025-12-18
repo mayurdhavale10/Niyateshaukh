@@ -1,3 +1,4 @@
+// src/app/page.tsx (or events page)
 'use client';
 
 import React, { useEffect, useMemo, useState } from 'react';
@@ -140,7 +141,13 @@ export default function EventsPage() {
                 <p className="text-white mt-4 text-sm sm:text-base">Loading event details...</p>
               </div>
             ) : (
-              <EventDetails eventId={event?._id} />
+              <EventDetails 
+                eventId={event?._id}
+                eventName={event?.eventName}
+                eventDate={formattedDate}
+                eventTime={event?.eventTime}
+                venue={venueName}
+              />
             )}
           </div>
         </div>
