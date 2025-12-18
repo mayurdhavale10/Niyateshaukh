@@ -25,9 +25,9 @@ type SuccessReg = {
 export default function EventDetails({ 
   eventId, 
   eventName,
-  eventDate = "18 November 2025",
-  eventTime = "6-9pm",
-  venue = "KALYAN, KALYAN"
+  eventDate,
+  eventTime,
+  venue
 }: Props) {
   const [mode, setMode] = useState<'audience' | 'performer'>('audience');
   const [name, setName] = useState('');
