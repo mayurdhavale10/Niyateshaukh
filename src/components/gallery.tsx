@@ -6,13 +6,22 @@ import Image from 'next/image';
 
 const size1Images = [
   '/size1/IMG_0791.webp',
-  '/size1/IMG_0797 (1).webp',
   '/size1/IMG_0801.webp',
   '/size1/IMG_0802.webp',
   '/size1/IMG_0808.webp',
 ];
 
 const size2Images = [
+  '/size2/1.webp',
+  '/size2/2.webp',
+  '/size2/3.webp',
+  '/size2/4.webp',
+  '/size2/5.webp',
+  '/size2/6.webp',
+  '/size2/7.webp',
+  '/size2/8.webp',
+  '/size2/10.webp',
+  '/size2/12.webp',
   '/size2/IMG_0790.webp',
   '/size2/IMG_0799.webp',
   '/size2/IMG_0800.webp',
