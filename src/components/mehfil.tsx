@@ -300,7 +300,7 @@ export default function MehfilGallery() {
                   src={featuredImage.image}
                   alt="Featured Mehfil photo"
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   priority
                 />
               </div>
@@ -325,7 +325,7 @@ export default function MehfilGallery() {
                     src={item.image}
                     alt={`Mehfil photo ${item.id}`}
                     fill
-                    className="object-cover"
+                    className="object-contain"
                   />
                 </div>
               </div>
