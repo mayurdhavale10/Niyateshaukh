@@ -218,7 +218,7 @@ export default function MehfilGallery() {
   }, []);
 
   const handleContactUs = () => {
-    router.push('/contactus');
+    router.push('/contact');
   };
 
   const featuredImage = { id: 6, image: '/mehfil/m6.webp' };
