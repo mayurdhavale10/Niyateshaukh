@@ -41,51 +41,6 @@ function FeatherPenIcon({ className = "" }: { className?: string }) {
   );
 }
 
-// Animated Seats Filling Counter Component
-function SeatsFillingCounter() {
-  const [percentage, setPercentage] = useState(0);
-  const targetPercentage = 50; // Change this to actual filled percentage
-
-  useEffect(() => {
-    let current = 0;
-    const increment = targetPercentage / 50; // Speed of animation
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= targetPercentage) {
-        setPercentage(targetPercentage);
-        clearInterval(timer);
-      } else {
-        setPercentage(Math.floor(current));
-      }
-    }, 30);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  return (
-    <div className="space-y-3">
-      <p className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-300 to-pink-300 animate-pulse drop-shadow-lg">
-        {percentage}% Seats Filled!
-      </p>
-      
-      {/* Progress Bar */}
-      <div className="w-full max-w-md mx-auto bg-gradient-to-r from-purple-900/40 to-pink-900/40 rounded-full h-4 overflow-hidden border border-purple-400/30 shadow-inner">
-        <div 
-          className="h-full bg-gradient-to-r from-purple-500 via-pink-500 to-purple-400 rounded-full transition-all duration-1000 ease-out relative overflow-hidden"
-          style={{ width: `${percentage}%` }}
-        >
-          {/* Shimmer effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse"></div>
-        </div>
-      </div>
-      
-      <p className="text-xs sm:text-sm text-purple-200/80 font-medium">
-        Out of 100 seats • Hurry up!
-      </p>
-    </div>
-  );
-}
-
 export default function EventsPage() {
   const [event, setEvent] = useState<EventDoc | null>(null);
   const [loading, setLoading] = useState(true);
@@ -218,49 +173,45 @@ export default function EventsPage() {
               </div>
             ) : (
               <>
-                {/* Urgency Message with Animation */}
+                {/* Register Now Message */}
                 <div className="text-center mb-6 sm:mb-8">
-                  <div className="relative inline-block">
+                  <div className="relative inline-block max-w-3xl w-full">
                     {/* Glowing background effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl blur-xl opacity-40 animate-pulse"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl blur-lg opacity-30 animate-pulse"></div>
                     
                     {/* Main card */}
-                    <div className="relative bg-gradient-to-br from-purple-900/60 via-pink-900/40 to-purple-900/60 backdrop-blur-xl rounded-3xl px-8 sm:px-12 py-6 sm:py-8 border-2 border-purple-400/40 shadow-2xl hover:shadow-purple-500/60 transition-all duration-500 hover:scale-[1.02]">
+                    <div className="relative bg-gradient-to-br from-purple-900/50 via-pink-900/30 to-purple-900/50 backdrop-blur-xl rounded-2xl px-5 sm:px-8 py-5 sm:py-6 border border-purple-400/30 shadow-xl">
                       
-                      {/* Top decoration with feather pens */}
-                      <div className="flex items-center justify-center gap-4 mb-4">
-                        <div className="animate-bounce" style={{ animationDelay: '0s' }}>
-                          <FeatherPenIcon className="w-8 h-8 sm:w-10 sm:h-10 text-purple-300 drop-shadow-lg" />
-                        </div>
-                        
-                        <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white drop-shadow-lg">
-                          <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-200 via-pink-200 to-purple-200">
-                            Register Soon!
+                      {/* Heading with icons */}
+                      <div className="flex items-center justify-center gap-2 sm:gap-3 mb-4">
+                        <FeatherPenIcon className="w-6 h-6 sm:w-7 sm:h-7 text-purple-300" />
+                        <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
+                          <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-200 to-pink-200">
+                            Register Now!
                           </span>
                         </h3>
+                        <FeatherPenIcon className="w-6 h-6 sm:w-7 sm:h-7 text-pink-300" />
+                      </div>
+                      
+                      {/* Main content */}
+                      <div className="space-y-4">
+                        {/* Urgency message */}
+                        <p className="text-lg sm:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-purple-300">
+                          Seats are filling up fast! 5% seats are filled 🚀
+                        </p>
                         
-                        <div className="animate-bounce" style={{ animationDelay: '0.2s' }}>
-                          <FeatherPenIcon className="w-8 h-8 sm:w-10 sm:h-10 text-pink-300 drop-shadow-lg" />
+                        {/* Important note - compact version */}
+                        <div className="bg-yellow-500/10 border border-yellow-400/30 rounded-xl px-3 sm:px-4 py-3">
+                          <div className="flex items-start gap-2">
+                            <span className="text-xl flex-shrink-0">⚠️</span>
+                            <div className="text-left">
+                              <p className="text-sm sm:text-base text-yellow-100 leading-snug">
+                                <span className="font-bold text-yellow-200">Important:</span> Save your ticket! You must show it at the door. <span className="font-bold">No ticket, no entry.</span>
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      
-                      {/* Seats counter */}
-                      <SeatsFillingCounter />
-                      
-                      {/* Bottom message */}
-                      <div className="mt-4 flex items-center justify-center gap-2">
-                        <span className="text-xl sm:text-2xl animate-pulse">🌟</span>
-                        <p className="text-sm sm:text-base md:text-lg text-purple-100 font-semibold animate-pulse">
-                          Don't miss your chance to shine on stage!
-                        </p>
-                        <span className="text-xl sm:text-2xl animate-pulse">🌟</span>
-                      </div>
-                      
-                      {/* Decorative corner accents */}
-                      <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-purple-400/50 rounded-tl-lg"></div>
-                      <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-purple-400/50 rounded-tr-lg"></div>
-                      <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-purple-400/50 rounded-bl-lg"></div>
-                      <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-purple-400/50 rounded-br-lg"></div>
                     </div>
                   </div>
                 </div>

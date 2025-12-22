@@ -234,7 +234,7 @@ export default function EventDetails({
                     : 'bg-white/5 border-white/20 hover:bg-white/10 hover:border-white/30 text-white'
                 }`}
               >
-                Performer
+                Get Lucky to Perform
               </button>
             </div>
           </div>

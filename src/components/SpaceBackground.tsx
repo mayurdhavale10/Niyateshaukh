@@ -233,7 +233,7 @@ export default function SpaceBackground() {
   }, []);
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full h-[70vh] md:h-[75vh] overflow-hidden">
       {/* Google Fonts Link */}
       <link 
         href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Lora:wght@600;700&display=swap" 
@@ -298,10 +298,10 @@ export default function SpaceBackground() {
         </div>
       </>
       
-      {/* Content overlay with centered logo and text */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4">
-        {/* Logo - Moved up */}
-        <div className="w-32 h-32 md:w-40 md:h-40 relative mb-8 md:mb-10 -mt-16 md:-mt-20">
+      {/* Content overlay with centered logo and text - REDUCED SPACING */}
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 pt-4">
+        {/* Logo - Reduced negative margin */}
+        <div className="w-32 h-32 md:w-40 md:h-40 relative mb-4 md:mb-6">
           <Image
             src="/landing/niyat_logo.webp"
             alt="Niyate Shaukh Logo"
@@ -311,9 +311,9 @@ export default function SpaceBackground() {
           />
         </div>
         
-        {/* Main Title */}
+        {/* Main Title - Reduced margin */}
         <h1 
-          className="text-white text-4xl md:text-6xl lg:text-7xl mb-6 md:mb-8 text-center whitespace-nowrap"
+          className="text-white text-4xl md:text-6xl lg:text-7xl mb-3 md:mb-4 text-center whitespace-nowrap"
           style={{
             fontFamily: "'Berkshire Swash', cursive",
             fontWeight: 400,

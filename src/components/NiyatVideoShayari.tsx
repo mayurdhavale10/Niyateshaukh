@@ -240,11 +240,12 @@ export default function NiyatVideoShayari() {
       {/* Three.js canvas */}
       <div ref={containerRef} className="absolute inset-0" style={{ zIndex: 1 }} />
       
-      {/* Content overlay */}
-      <div className="relative z-10 py-16 md:py-24">
+      {/* Content overlay - REDUCED PADDING */}
+      <div className="relative z-10 pt-24 pb-8 md:pt-32 md:pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="text-center mb-12">
+          {/* REDUCED MARGIN BOTTOM */}
+          <div className="text-center mb-6 md:mb-8">
             <h2 
               className="text-3xl sm:text-4xl font-extrabold text-white mb-2"
               style={{ fontFamily: "'Berkshire Swash', cursive" }}
