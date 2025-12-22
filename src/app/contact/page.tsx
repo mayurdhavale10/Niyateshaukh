@@ -52,7 +52,7 @@ export default function ContactPage() {
     },
     {
       name: 'Sujeet',
-      phone: '+91 90825 42895'
+      phone: '+91 86988 92907'
     },
     {
       name: 'Sumeet',

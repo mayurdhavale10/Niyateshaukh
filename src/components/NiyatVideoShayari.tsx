@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import { PlayCircle, Feather } from 'lucide-react';
 import * as THREE from 'three';
 
-const VIDEO_ID = 'dAz9Birr4Qs';
+const VIDEO_ID = '1ATFAUNRsVA';
 
 export default function NiyatVideoShayari() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -218,7 +218,7 @@ export default function NiyatVideoShayari() {
   }, []);
 
   const handleStartStory = () => {
-    alert('Navigating to events page...');
+    window.location.href = '/events';
   };
 
   return (

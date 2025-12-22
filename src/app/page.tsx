@@ -1,8 +1,8 @@
 import SpaceBackground from '@/components/SpaceBackground';
 import Navbar from '@/components/Navbar';
 import NiyatVideoShayari from '@/components/NiyatVideoShayari';
-import MehfilGallery from '@/components/mehfil';
 import Gallery from '@/components/gallery';
+import MehfilGallery from '@/components/mehfil';
 import Ticket from '@/components/Ticket';
 
 export default function Home() {
@@ -11,8 +11,8 @@ export default function Home() {
       <Navbar />
       <SpaceBackground />
       <NiyatVideoShayari />
-      <MehfilGallery />
       <Gallery />
+      <MehfilGallery />
       <Ticket />
     </main>
   );

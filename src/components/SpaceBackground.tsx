@@ -254,7 +254,7 @@ export default function SpaceBackground() {
       {/* Lanterns - Mobile Responsive */}
       <>
         {/* Top Left Lantern - Small */}
-        <div className="absolute -top-2 left-8 sm:left-20 md:top-0 md:left-44 w-32 h-48 sm:w-40 sm:h-56 md:w-48 md:h-64">
+        <div className="absolute top-0 left-8 sm:left-16 md:top-2 md:left-28 w-24 h-36 sm:w-28 sm:h-42 md:w-32 md:h-48">
           <Image
             src="/landing/lantern_small.webp"
             alt="Lantern"
@@ -265,7 +265,7 @@ export default function SpaceBackground() {
         </div>
         
         {/* Top Right Lantern - Small */}
-        <div className="absolute -top-2 right-8 sm:right-20 md:top-0 md:right-44 w-32 h-48 sm:w-40 sm:h-56 md:w-48 md:h-64">
+        <div className="absolute top-0 right-8 sm:right-16 md:top-2 md:right-28 w-24 h-36 sm:w-28 sm:h-42 md:w-32 md:h-48">
           <Image
             src="/landing/lantern_small.webp"
             alt="Lantern"
@@ -276,7 +276,7 @@ export default function SpaceBackground() {
         </div>
         
         {/* Left Side Lantern - Long */}
-        <div className="absolute -top-28 -left-8 sm:-top-36 sm:left-0 md:-top-52 md:left-2 w-48 h-[32rem] sm:w-64 sm:h-[40rem] md:w-80 md:h-[48rem]">
+        <div className="absolute -top-16 -left-6 sm:-top-20 sm:-left-2 md:-top-24 md:left-0 w-36 h-[24rem] sm:w-44 sm:h-[28rem] md:w-52 md:h-[32rem]">
           <Image
             src="/landing/lantern_long.webp"
             alt="Lantern"
@@ -287,7 +287,7 @@ export default function SpaceBackground() {
         </div>
         
         {/* Right Side Lantern - Long */}
-        <div className="absolute -top-28 -right-8 sm:-top-36 sm:right-0 md:-top-52 md:right-2 w-48 h-[32rem] sm:w-64 sm:h-[40rem] md:w-80 md:h-[48rem]">
+        <div className="absolute -top-16 -right-6 sm:-top-20 sm:-right-2 md:-top-24 md:right-0 w-36 h-[24rem] sm:w-44 sm:h-[28rem] md:w-52 md:h-[32rem]">
           <Image
             src="/landing/lantern_long.webp"
             alt="Lantern"
