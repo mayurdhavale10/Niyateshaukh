@@ -112,7 +112,7 @@ export default function EventManagerPage() {
         status: 'upcoming' as const,
         isActive: createForm.isActive,
         registrationOpen: createForm.isActive,
-        capacity: { audience: 300, performers: 20, total: 320 },
+        capacity: { audience: 1500, performers: 150, total: 1650 },
         registered: { audience: 0, performers: 0, total: 0 },
       };
 
