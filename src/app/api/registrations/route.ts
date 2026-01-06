@@ -52,10 +52,30 @@ export async function GET(req: NextRequest) {
         })
       );
 
+      // ✅ Filter out performers beyond 151
+      const performerRegistrations = registrationsWithEvents
+        .filter(reg => reg.registrationType === 'performer')
+        .sort((a, b) => {
+          const dateA = a.registeredAt ? new Date(a.registeredAt).getTime() : 0;
+          const dateB = b.registeredAt ? new Date(b.registeredAt).getTime() : 0;
+          return dateA - dateB;
+        });
+      
+      const audienceRegistrations = registrationsWithEvents
+        .filter(reg => reg.registrationType === 'audience');
+      
+      const filteredPerformers = performerRegistrations.slice(0, 151);
+      const finalRegistrations = [...filteredPerformers, ...audienceRegistrations]
+        .sort((a, b) => {
+          const dateA = a.registeredAt ? new Date(a.registeredAt).getTime() : 0;
+          const dateB = b.registeredAt ? new Date(b.registeredAt).getTime() : 0;
+          return dateB - dateA;
+        });
+
       return NextResponse.json({
         success: true,
-        registrations: registrationsWithEvents,
-        count: registrationsWithEvents.length,
+        registrations: finalRegistrations,
+        count: finalRegistrations.length,
       });
     }
 
@@ -201,11 +221,21 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Capacity
+    // ✅ ATOMIC CAPACITY CHECK - Use actual database count
+    const currentCount = await RegistrationModel.countDocuments({
+      eventId,
+      registrationType
+    });
+
+    // Hard limit for performers at 151 (temporary fix)
     const capacityKey = registrationType === 'performer' ? 'performers' : 'audience';
-    if (event.registered[capacityKey] >= event.capacity[capacityKey]) {
+    const effectiveLimit = registrationType === 'performer' 
+      ? 151 
+      : event.capacity[capacityKey];
+
+    if (currentCount >= effectiveLimit) {
       return NextResponse.json(
-        { error: `Sorry, ${registrationType} slots are full` },
+        { error: `Sorry, ${registrationType} slots are full.` },
         { status: 400 }
       );
     }
