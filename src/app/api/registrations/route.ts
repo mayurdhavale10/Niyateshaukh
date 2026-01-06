@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
     const eventId = searchParams.get('eventId');
     const userId = searchParams.get('userId');
 
-    // If no specific query params, return ALL registrations (for admin)
+    // ✅ NEW: If no specific query params, return ALL registrations (for admin)
     if (!phone && !email && !userId) {
       const query: Record<string, any> = {};
       if (eventId) query.eventId = eventId;
@@ -28,6 +28,7 @@ export async function GET(req: NextRequest) {
         .sort({ registeredAt: -1 })
         .lean();
 
+      // Fetch event details for each registration
       const registrationsWithEvents = await Promise.all(
         registrations.map(async (reg) => {
           const event = await EventModel.findById(reg.eventId).lean();
@@ -58,7 +59,7 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    // Specific registration lookup (for scanner/user)
+    // ✅ EXISTING: Specific registration lookup (for scanner/user)
     const query: Record<string, any> = {};
     if (eventId) query.eventId = eventId;
 
@@ -124,7 +125,14 @@ export async function POST(req: NextRequest) {
     await connectDB();
     const body = await req.json();
 
-    const { eventId, name, phone, email, registrationType, performanceType } = body;
+    const {
+      eventId,
+      name,
+      phone,
+      email,
+      registrationType,
+      performanceType,
+    } = body;
 
     // Validation
     if (!eventId) {
@@ -139,7 +147,10 @@ export async function POST(req: NextRequest) {
     }
 
     if (!registrationType || !['audience', 'performer'].includes(registrationType)) {
-      return NextResponse.json({ error: 'Invalid registration type' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Invalid registration type' },
+        { status: 400 }
+      );
     }
 
     if (registrationType === 'performer' && !performanceType) {
@@ -169,6 +180,7 @@ export async function POST(req: NextRequest) {
     }).lean();
 
     if (existingRegistration) {
+      console.log('📱 Phone already registered, returning existing ticket:', existingRegistration.userId);
       return NextResponse.json(
         {
           registration: {
@@ -189,35 +201,22 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // ✅ HARD STOP ONLY FOR PERFORMERS (uses real DB count)
-    if (registrationType === 'performer') {
-      const cap = Number(event.capacity?.performers ?? 0);
-      if (!Number.isFinite(cap) || cap <= 0) {
-        return NextResponse.json(
-          { error: 'Performer capacity is not configured' },
-          { status: 500 }
-        );
-      }
-
-      const performerCount = await RegistrationModel.countDocuments({
-        eventId,
-        registrationType: 'performer',
-      });
-
-      if (performerCount >= cap) {
-        return NextResponse.json(
-          { error: 'Sorry, performer capacity is full' },
-          { status: 400 }
-        );
-      }
+    // Capacity
+    const capacityKey = registrationType === 'performer' ? 'performers' : 'audience';
+    if (event.registered[capacityKey] >= event.capacity[capacityKey]) {
+      return NextResponse.json(
+        { error: `Sorry, ${registrationType} slots are full` },
+        { status: 400 }
+      );
     }
 
-    // ✅ Generate userId using count PER TYPE (so performer numbering is independent)
-    const count = await RegistrationModel.countDocuments({ eventId, registrationType });
+    // Generate userId
+    const count = await RegistrationModel.countDocuments({ eventId });
     const paddedCount = String(count + 1).padStart(4, '0');
     const prefix = registrationType === 'performer' ? 'P' : 'A';
     const userId = `${prefix}${paddedCount}`;
 
+    // QR payload includes phone and name for offline scan fallback
     const qrPayload = {
       userId,
       eventId,
@@ -226,6 +225,7 @@ export async function POST(req: NextRequest) {
       type: registrationType,
     };
 
+    // Generate QR code
     const { toDataURL } = await import('qrcode');
     const qrCodeDataURL = await toDataURL(JSON.stringify(qrPayload), {
       width: 300,
@@ -233,6 +233,7 @@ export async function POST(req: NextRequest) {
       color: { dark: '#000000', light: '#FFFFFF' },
     });
 
+    // Create registration
     const registration = await RegistrationModel.create({
       eventId,
       userId,
@@ -245,14 +246,15 @@ export async function POST(req: NextRequest) {
       registeredAt: new Date(),
     });
 
-    // Update event counters (kept for dashboard display)
-    const capacityKey = registrationType === 'performer' ? 'performers' : 'audience';
+    // Update event counters
     await EventModel.findByIdAndUpdate(eventId, {
       $inc: {
         [`registered.${capacityKey}`]: 1,
         'registered.total': 1,
       },
     });
+
+    console.log('✅ New registration created:', userId);
 
     return NextResponse.json(
       {
