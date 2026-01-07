@@ -197,7 +197,7 @@ export default function EventsPage() {
                       <div className="space-y-4">
                         {/* Urgency message */}
                         <p className="text-lg sm:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-purple-300">
-                          Seats are filling up fast! 50% seats are filled 🚀
+                          Seats are filling up fast! 70% seats are filled 🚀
                         </p>
                         
                         {/* Important note - compact version */}
