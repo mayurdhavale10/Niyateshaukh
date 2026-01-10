@@ -3,6 +3,13 @@ import GoogleProvider from 'next-auth/providers/google';
 import connectDB from '@/lib/mongodb';
 import AdminModel from '@/lib/models/Admin';
 
+// Define authorized users with their roles
+const AUTHORIZED_USERS = {
+  'niyateshaukkalyan@gmail.com': 'super_admin',
+  'sujeetgarud111@gmail.com': 'super_admin',
+  'niyateshaukh.entry@gmail.com': 'super_admin',
+} as const;
+
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
@@ -13,26 +20,34 @@ export const authOptions: NextAuthOptions = {
   
   callbacks: {
     async signIn({ user }) {
-      // Allow ALL users to sign in
-      try {
-        if (user.email === 'niyateshaukkalyan@gmail.com') {
-          await connectDB();
-          await AdminModel.findOneAndUpdate(
-            { email: user.email },
-            {
-              email: user.email,
-              name: user.name || 'Admin',
-              role: 'super_admin',
-              lastLogin: new Date(),
-            },
-            { upsert: true, new: true }
-          );
-        }
-      } catch (error) {
-        console.error('DB error (but allowing sign in):', error instanceof Error ? error.message : String(error));
+      // Only allow authorized users to sign in
+      const userEmail = user.email?.toLowerCase();
+      
+      if (!userEmail || !(userEmail in AUTHORIZED_USERS)) {
+        return false; // Reject unauthorized users
       }
 
-      return true; // Always allow sign in
+      try {
+        await connectDB();
+        
+        const role = AUTHORIZED_USERS[userEmail as keyof typeof AUTHORIZED_USERS];
+        
+        await AdminModel.findOneAndUpdate(
+          { email: userEmail },
+          {
+            email: userEmail,
+            name: user.name || 'Admin',
+            role: role,
+            lastLogin: new Date(),
+          },
+          { upsert: true, new: true }
+        );
+      } catch (error) {
+        console.error('DB error:', error instanceof Error ? error.message : String(error));
+        // Still allow sign in even if DB update fails
+      }
+
+      return true;
     },
 
     async redirect({ url, baseUrl }) {
@@ -49,7 +64,10 @@ export const authOptions: NextAuthOptions = {
 
     async jwt({ token, user }) {
       if (user) {
-        token.role = user.email === 'niyateshaukkalyan@gmail.com' ? 'super_admin' : 'user';
+        const userEmail = user.email?.toLowerCase();
+        token.role = userEmail && userEmail in AUTHORIZED_USERS 
+          ? AUTHORIZED_USERS[userEmail as keyof typeof AUTHORIZED_USERS]
+          : 'user';
       }
       return token;
     },
