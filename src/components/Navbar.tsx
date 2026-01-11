@@ -21,7 +21,12 @@ export default function Navbar() {
   }, []);
 
   // Check if logged-in user is admin
-  const isAdmin = session?.user?.email === 'niyateshaukkalyan@gmail.com';
+  const userEmail = session?.user?.email?.toLowerCase();
+  const isAdmin = 
+    userEmail === 'niyateshaukkalyan@gmail.com' ||
+    userEmail === 'sujeetgarud111@gmail.com' ||
+    userEmail === 'niyateshaukh.entry@gmail.com' ||
+    userEmail === 'dhavalemayur746@gmail.com';
 
   return (
     <nav
