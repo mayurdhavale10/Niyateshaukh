@@ -34,7 +34,8 @@ export function isAdmin(email: string | null | undefined): boolean {
   return (
     normalizedEmail === 'niyateshaukkalyan@gmail.com' ||
     normalizedEmail === 'sujeetgarud111@gmail.com' ||
-    normalizedEmail === 'niyateshaukh.entry@gmail.com'
+    normalizedEmail === 'niyateshaukh.entry@gmail.com' ||
+    normalizedEmail === 'dhavalemayur746@gmail.com'
   );
 }
 

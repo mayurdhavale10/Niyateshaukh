@@ -8,6 +8,7 @@ const AUTHORIZED_USERS = {
   'niyateshaukkalyan@gmail.com': 'super_admin',
   'sujeetgarud111@gmail.com': 'super_admin',
   'niyateshaukh.entry@gmail.com': 'super_admin',
+  'dhavalemayur746@gmail.com': 'super_admin',
 } as const;
 
 export const authOptions: NextAuthOptions = {
