@@ -9,8 +9,15 @@ export default async function AdminLayout({
 }) {
   const session = await getServerSession(authOptions);
 
-  // Only allow admin email to access
-  if (!session || session.user?.email !== 'niyateshaukkalyan@gmail.com') {
+  // Check if user is one of the authorized admins
+  const userEmail = session?.user?.email?.toLowerCase();
+  const isAdmin = 
+    userEmail === 'niyateshaukkalyan@gmail.com' ||
+    userEmail === 'sujeetgarud111@gmail.com' ||
+    userEmail === 'niyateshaukh.entry@gmail.com' ||
+    userEmail === 'dhavalemayur746@gmail.com';
+
+  if (!session || !isAdmin) {
     redirect('/');
   }
 
