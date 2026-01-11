@@ -12,7 +12,12 @@ export default withAuth(
     }
 
     // Check if user is admin for other admin routes
-    const isAdmin = token?.email === 'niyateshaukkalyan@gmail.com';
+    const userEmail = token?.email?.toLowerCase();
+    const isAdmin = 
+      userEmail === 'niyateshaukkalyan@gmail.com' ||
+      userEmail === 'sujeetgarud111@gmail.com' ||
+      userEmail === 'niyateshaukh.entry@gmail.com' ||
+      userEmail === 'dhavalemayur746@gmail.com';
     
     if (!isAdmin) {
       return NextResponse.redirect(new URL('/', req.url));
@@ -31,7 +36,6 @@ export default withAuth(
         }
         
         // For other admin routes, just check if logged in
-        // The actual admin check happens in the middleware function above
         return !!token;
       },
     },
