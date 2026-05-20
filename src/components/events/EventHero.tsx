@@ -22,7 +22,7 @@ type Props = {
 export default function EventHero({
   src,
   alt = 'Event',
-  fallbackSrc = '/event/eventniyat.webp',
+  fallbackSrc = '/mehfil/m7.webp',
   height = 'h-[50vh]',
   eventName,
   mehfilNumber,

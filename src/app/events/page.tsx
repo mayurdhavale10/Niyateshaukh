@@ -17,7 +17,7 @@ type EventDoc = {
   contactEmail?: string;
 };
 
-const DEFAULT_EVENT_HERO = '/event/eventniyat.webp';
+const DEFAULT_EVENT_HERO = '/mehfil/m7.webp';
 
 // Custom Feather Pen SVG Icon Component
 function FeatherPenIcon({ className = "" }: { className?: string }) {

@@ -221,7 +221,7 @@ export default function MehfilGallery() {
     router.push('/contact');
   };
 
-  const featuredImage = { id: 6, image: '/mehfil/m6.webp' };
+  const featuredImage = { id: 7, image: '/mehfil/m7.webp' };
   
   const images = [
     { id: 1, image: '/mehfil/m1.webp' },
