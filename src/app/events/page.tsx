@@ -22,18 +22,18 @@ const DEFAULT_EVENT_HERO = '/event/eventniyat.webp';
 // Custom Feather Pen SVG Icon Component
 function FeatherPenIcon({ className = "" }: { className?: string }) {
   return (
-    <svg 
+    <svg
       className={className}
-      viewBox="0 0 24 24" 
-      fill="none" 
+      viewBox="0 0 24 24"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path 
-        d="M20.24 3.76c-.98-.98-2.56-.98-3.54 0L4 16.46V20h3.54l12.7-12.7c.98-.98.98-2.56 0-3.54zM6 18v-1.54l9-9L16.54 9l-9 9H6z" 
+      <path
+        d="M20.24 3.76c-.98-.98-2.56-.98-3.54 0L4 16.46V20h3.54l12.7-12.7c.98-.98.98-2.56 0-3.54zM6 18v-1.54l9-9L16.54 9l-9 9H6z"
         fill="currentColor"
       />
-      <path 
-        d="M3 20h18v2H3v-2z" 
+      <path
+        d="M3 20h18v2H3v-2z"
         fill="currentColor"
         opacity="0.7"
       />
@@ -51,10 +51,10 @@ export default function EventsPage() {
       try {
         const res = await fetch('/api/events', { cache: 'no-store' });
         const data = await res.json();
-        
+
         console.log('📡 API Response:', data);
         console.log('🎭 Mehfil Number:', data?.event?.mehfilNumber, 'Type:', typeof data?.event?.mehfilNumber);
-        
+
         setEvent(data?.event ?? null);
       } catch (err) {
         console.error('❌ Failed to fetch event:', err);
@@ -86,9 +86,9 @@ export default function EventsPage() {
   return (
     <div className="relative min-h-screen overflow-x-hidden">
       {/* Google Fonts */}
-      <link 
-        href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" 
-        rel="stylesheet" 
+      <link
+        href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap"
+        rel="stylesheet"
       />
 
       {/* Background */}
@@ -105,13 +105,13 @@ export default function EventsPage() {
         <div className="w-full px-3 sm:px-4 md:px-6 pt-16 sm:pt-20 pb-6 sm:pb-8">
           <div className="w-full text-center space-y-3 sm:space-y-4">
             {/* Event Name */}
-            <h1 
+            <h1
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight px-2"
               style={{ fontFamily: "'Berkshire Swash', cursive" }}
             >
               {event?.eventName || 'Niyat e Shaukh'}
             </h1>
-            
+
             {/* Mehfil Number */}
             {event?.mehfilNumber && (
               <p className="text-lg sm:text-xl md:text-2xl text-purple-300 font-medium">
@@ -178,10 +178,10 @@ export default function EventsPage() {
                   <div className="relative inline-block max-w-3xl w-full">
                     {/* Glowing background effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl blur-lg opacity-30 animate-pulse"></div>
-                    
+
                     {/* Main card */}
                     <div className="relative bg-gradient-to-br from-purple-900/50 via-pink-900/30 to-purple-900/50 backdrop-blur-xl rounded-2xl px-5 sm:px-8 py-5 sm:py-6 border border-purple-400/30 shadow-xl">
-                      
+
                       {/* Heading with icons */}
                       <div className="flex items-center justify-center gap-2 sm:gap-3 mb-4">
                         <FeatherPenIcon className="w-6 h-6 sm:w-7 sm:h-7 text-purple-300" />
@@ -192,14 +192,14 @@ export default function EventsPage() {
                         </h3>
                         <FeatherPenIcon className="w-6 h-6 sm:w-7 sm:h-7 text-pink-300" />
                       </div>
-                      
+
                       {/* Main content */}
                       <div className="space-y-4">
                         {/* Urgency message */}
                         <p className="text-lg sm:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-purple-300">
-                          Seats are filling up fast! 98% seats are filled 🚀
+                          Seats are filling up fast! 10% seats are filled 🚀
                         </p>
-                        
+
                         {/* Important note - compact version */}
                         <div className="bg-yellow-500/10 border border-yellow-400/30 rounded-xl px-3 sm:px-4 py-3">
                           <div className="flex items-start gap-2">
@@ -215,8 +215,8 @@ export default function EventsPage() {
                     </div>
                   </div>
                 </div>
-                
-                <EventDetails 
+
+                <EventDetails
                   eventId={event?._id}
                   eventName={event?.eventName}
                   eventDate={formattedDate}
