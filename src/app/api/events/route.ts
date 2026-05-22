@@ -107,7 +107,7 @@ export async function POST(req: NextRequest) {
       venue,
       photos: Array.isArray(body?.photos) ? body.photos : [],
       sponsors: Array.isArray(body?.sponsors) ? body.sponsors : [],
-      capacity: body?.capacity ?? { audience: 1500, performers: 138, total: 1650 },
+      capacity: body?.capacity ?? { audience: 1500, performers: 48, total: 1548 },
       registered: body?.registered ?? { audience: 0, performers: 0, total: 0 },
       status: body?.status ?? 'upcoming',
       isActive,

@@ -52,7 +52,7 @@ export async function GET(req: NextRequest) {
         })
       );
 
-      // ✅ Filter out performers beyond 151
+      // ✅ Filter out performers beyond 48
       const performerRegistrations = registrationsWithEvents
         .filter(reg => reg.registrationType === 'performer')
         .sort((a, b) => {
@@ -64,7 +64,7 @@ export async function GET(req: NextRequest) {
       const audienceRegistrations = registrationsWithEvents
         .filter(reg => reg.registrationType === 'audience');
       
-      const filteredPerformers = performerRegistrations.slice(0, 151);
+      const filteredPerformers = performerRegistrations.slice(0, 48);
       const finalRegistrations = [...filteredPerformers, ...audienceRegistrations]
         .sort((a, b) => {
           const dateA = a.registeredAt ? new Date(a.registeredAt).getTime() : 0;
@@ -227,10 +227,10 @@ export async function POST(req: NextRequest) {
       registrationType
     });
 
-    // Hard limit for performers at 151 (temporary fix)
+    // Hard limit for performers at 48 (temporary fix)
     const capacityKey = registrationType === 'performer' ? 'performers' : 'audience';
     const effectiveLimit = registrationType === 'performer' 
-      ? 151 
+      ? 48 
       : event.capacity[capacityKey];
 
     if (currentCount >= effectiveLimit) {
